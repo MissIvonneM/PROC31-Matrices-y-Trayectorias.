@@ -1,25 +1,26 @@
-//Código Inicinal Class Pig.js PRO C24 V1
-class Pig{
-  constructor(x, y){      
-   var options ={
-     restitution: 0.85,
-     friction: 0.3,
-     density: 0.5
-   }
-   this.body = Bodies.rectangle(x, y, 50, 50, options);   
-   this.width = 50;                           
-   this.height = 50;
-   World.add(world,this.body);
+class Pig extends BaseClass {
+  constructor(x, y){
+    super(x,y,50,50);
+    this.image = loadImage("sprites/enemy.png");
+    this.Visiblity = 255;
   }
+
  display(){
-   var pos = this.body.position;
-   var angle = this.body.angle;
-   push();
-   translate(pos.x, pos.y);
-   rotate(angle);
-   rectMode(CENTER);
-   fill("#18F003");
-   rect(0, 0, this.width, this.height);
-   pop();
+   //console.log(this.body.speed);
+   if(this.body.speed < 3){
+    super.display();
+   }
+   else{
+     World.remove(world, this.body);
+     push();
+     this.Visiblity = this.Visiblity - 5;
+     tint(255,this.Visiblity);
+     image(this.image, this.body.position.x, this.body.position.y, 50, 50);
+     pop();
+   }
+   
  }
-}
+
+
+
+};
